@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aanvragen.Entities {
     public class Request {
@@ -39,13 +36,5 @@ namespace Aanvragen.Entities {
         public virtual Company Company { get; set; }
 
         public virtual ICollection<RequestAttachment> RequestAttachments { get; set; }
-    }
-
-    public enum RequestStatus {
-        Nieuw, Aanbieding, Contract, Verloren, Gesloten
-    }
-
-    public enum RequestType {
-        Inkoop, Verkoop, Overig
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aanvragen.Entities {
     public class Person {
@@ -50,14 +46,6 @@ namespace Aanvragen.Entities {
         public virtual ICollection<PersonAttachment> PersonAttachments { get; set; }
 
         public virtual Company Company { get; set; }
-    }
-
-    public enum HireType {
-        Inhuur, Verhuur, Geen, Overig
-    }
-
-    public enum Role {
-        Operationmanager, Accountmanager, Directeur, Jobcoach, Overig
     }
 
 }

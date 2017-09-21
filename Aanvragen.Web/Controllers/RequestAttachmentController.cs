@@ -10,39 +10,36 @@ using System.Web.Mvc;
 using Aanvragen.Entities;
 using Aanvragen.Web.DAL;
 
-namespace Aanvragen.Web.Controllers
-{
-    public class RequestAttachmentController : Controller
-    {
+namespace Aanvragen.Web.Controllers {
+    public class RequestAttachmentController : Controller {
         private RequestDb db = new RequestDb();
 
         // GET: RequestAttachment
-        public async Task<ActionResult> Index()
-        {
+        public async Task<ActionResult> Index() {
             var requestAttachments = db.RequestAttachments.Include(r => r.Attachment).Include(r => r.Request);
             return View(await requestAttachments.ToListAsync());
         }
 
         // GET: RequestAttachment/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RequestAttachment requestAttachment = await db.RequestAttachments.FindAsync(id);
-            if (requestAttachment == null)
-            {
+            if (requestAttachment == null) {
                 return HttpNotFound();
             }
             return View(requestAttachment);
         }
 
         // GET: RequestAttachment/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create(int? id) {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             ViewBag.AttachmentID = new SelectList(db.Attachments, "ID", "Name");
-            ViewBag.RequestID = new SelectList(db.Requests, "ID", "RequestNumber");
+            ViewBag.RequestID = new SelectList(db.Requests, "ID", "RequestNumber", id);
             return View();
         }
 
@@ -51,13 +48,11 @@ namespace Aanvragen.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,RequestID,AttachmentID,Action")] RequestAttachment requestAttachment)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Create([Bind(Include = "ID,RequestID,AttachmentID,Action")] RequestAttachment requestAttachment) {
+            if (ModelState.IsValid) {
                 db.RequestAttachments.Add(requestAttachment);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Request", new { id = requestAttachment.RequestID });
             }
 
             ViewBag.AttachmentID = new SelectList(db.Attachments, "ID", "Name", requestAttachment.AttachmentID);
@@ -66,15 +61,12 @@ namespace Aanvragen.Web.Controllers
         }
 
         // GET: RequestAttachment/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Edit(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RequestAttachment requestAttachment = await db.RequestAttachments.FindAsync(id);
-            if (requestAttachment == null)
-            {
+            if (requestAttachment == null) {
                 return HttpNotFound();
             }
             ViewBag.AttachmentID = new SelectList(db.Attachments, "ID", "Name", requestAttachment.AttachmentID);
@@ -87,10 +79,8 @@ namespace Aanvragen.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,RequestID,AttachmentID,Action")] RequestAttachment requestAttachment)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Edit([Bind(Include = "ID,RequestID,AttachmentID,Action")] RequestAttachment requestAttachment) {
+            if (ModelState.IsValid) {
                 db.Entry(requestAttachment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -101,15 +91,12 @@ namespace Aanvragen.Web.Controllers
         }
 
         // GET: RequestAttachment/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Delete(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RequestAttachment requestAttachment = await db.RequestAttachments.FindAsync(id);
-            if (requestAttachment == null)
-            {
+            if (requestAttachment == null) {
                 return HttpNotFound();
             }
             return View(requestAttachment);
@@ -118,18 +105,15 @@ namespace Aanvragen.Web.Controllers
         // POST: RequestAttachment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<ActionResult> DeleteConfirmed(int id) {
             RequestAttachment requestAttachment = await db.RequestAttachments.FindAsync(id);
             db.RequestAttachments.Remove(requestAttachment);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Request", new { id = requestAttachment.RequestID });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

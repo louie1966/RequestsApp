@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aanvragen.Entities {
     public class Attachment {
@@ -32,13 +28,5 @@ namespace Aanvragen.Entities {
 
         public virtual ICollection<RequestAttachment> RequestAttachments { get; set; }
         public virtual ICollection<PersonAttachment> PersonAttachments { get; set; }
-    }
-
-    public enum AttachmentAction {
-        Verzonden, Beoordeling, Verbeterd, Overig
-    }
-
-    public enum AttachmentType {
-        CV, Mail, Certificaat, Personal, Overig
     }
 }

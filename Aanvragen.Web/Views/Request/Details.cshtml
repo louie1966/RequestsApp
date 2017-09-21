@@ -93,12 +93,12 @@
             @Html.DisplayNameFor(model => model.RequestAttachments)
         </dt>
         <dd>
-            @Html.ActionLink("Relate attachment", "RelateAttachment", new { id = Model.ID })
+            @Html.ActionLink("Relate attachment", "Create", "RequestAttachment", new { id = Model.ID }, null)
             <ul>
                 @if (Model.RequestAttachments != null) {
                 foreach (var item in Model.RequestAttachments) {
                         <li>
-                            <a target="_blank" href="@Html.DisplayFor(modelItem => item.Attachment.Url)">@Html.DisplayFor(modelItem => item.Attachment.Name)</a>
+                            @Html.ActionLink("X", "Delete", "RequestAttachment", new { id = item.ID }, null) | <a target="_blank" href="@Html.DisplayFor(modelItem => item.Attachment.Url)">@Html.DisplayFor(modelItem => item.Attachment.Name)</a>
                         </li>
                     }
                 }

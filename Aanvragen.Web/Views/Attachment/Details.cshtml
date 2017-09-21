@@ -47,7 +47,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Url)
+            <a href="@Html.DisplayFor(model=> model.Url)" target="_blank">@Html.DisplayFor(model => model.Url)</a>
         </dd>
 
         <dt>
@@ -65,7 +65,36 @@
         <dd>
             @Html.DisplayFor(model => model.Type)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.PersonAttachments)
+        </dt>
+        <dd>
+            @Html.ActionLink("Relate attachment", "Create", "PersonAttachment", new { id = Model.ID }, null)
+            <ul>
+                @if (Model.PersonAttachments != null) {
+                foreach (var item in Model.PersonAttachments) {
+                        <li>
+                            @Html.ActionLink("X", "Delete", "PersonAttachment", new { id = item.ID }, null) |@item.Person.FirstName @item.Person.LastName
+                        </li>
+                    }
+                }
+            </ul>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestAttachments)
+        </dt>
+        <dd>
+            @Html.ActionLink("Relate attachment", "Create", "RequestAttachment", new { id = Model.ID }, null)
+            <ul>
+                @if (Model.RequestAttachments != null) {
+                foreach (var item in Model.RequestAttachments) {
+                        <li>
+                            @Html.ActionLink("X", "Delete", "RequestAttachment", new { id = item.ID }, null) |@item.Request.RequestNumber @item.Request.Name
+                        </li>
+                    }
+                }
+            </ul>
+        </dd>
     </dl>
 </div>
 <p>
