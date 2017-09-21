@@ -1,0 +1,42 @@
+﻿@model Aanvragen.Entities.RequestAttachment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RequestAttachment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Attachment.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Attachment.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Request.RequestNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Request.RequestNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Action)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Action)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
