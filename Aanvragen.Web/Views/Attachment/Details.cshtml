@@ -65,9 +65,11 @@
         <dd>
             @Html.DisplayFor(model => model.Type)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.PersonAttachments)
         </dt>
+
         <dd>
             @Html.ActionLink(" ", "Create", "PersonAttachment", new { id = Model.ID }, new { @class = "glyphicon glyphicon-plus" })
             <ul>
@@ -81,9 +83,11 @@
             </ul>
 
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.RequestAttachments)
         </dt>
+
         <dd>
             @Html.ActionLink(" ", "Create", "RequestAttachment", new { id = Model.ID }, new { @class = "glyphicon glyphicon-plus" })
             <ul>
@@ -96,6 +100,7 @@
                 }
             </ul>
         </dd>
+
     </dl>
 </div>
 <p>

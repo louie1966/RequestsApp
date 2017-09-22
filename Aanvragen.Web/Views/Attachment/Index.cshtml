@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { @Class = "btn btn-primary", @role = "button" })
-</p>
 <table class="table">
     <tr>
         <th>
@@ -20,7 +17,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Type)
         </th>
-        <th></th>
+        <th>
+            <div class="btn-group btn-group-xs">
+                @Html.ActionLink(" ", "Create", null, new { @Class = "btn btn-success glyphicon glyphicon-link", @role = "button" })@Html.ActionLink(" ", "Upload", null, new { @Class = "btn btn-warning glyphicon glyphicon-upload", @role = "button" })
+                </div>
+        </th>
     </tr>
 
     @foreach (var item in Model) {
@@ -36,9 +37,9 @@
             </td>
             <td>
                 <div class="btn-group btn-group-xs">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger", @role = "button" })
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "btn btn-primary glyphicon glyphicon-pencil", @role = "button" })
+                    @Html.ActionLink(" ", "Details", new { id = item.ID }, new { @class = "btn btn-primary glyphicon glyphicon-th-list", @role = "button" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "btn btn-danger glyphicon glyphicon-trash", @role = "button" })
                 </div>
             </td>
         </tr>

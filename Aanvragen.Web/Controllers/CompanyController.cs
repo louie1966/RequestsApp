@@ -19,7 +19,8 @@ namespace Aanvragen.Web.Controllers
         // GET: Company
         public async Task<ActionResult> Index()
         {
-            return View(await db.Companies.ToListAsync());
+            var companies = db.Companies.Where(x => x.Active == true);
+            return View(await companies.ToListAsync());
         }
 
         // GET: Company/Details/5
@@ -112,7 +113,7 @@ namespace Aanvragen.Web.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Company company = await db.Companies.FindAsync(id);
-            db.Companies.Remove(company);
+            company.Active = false;
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

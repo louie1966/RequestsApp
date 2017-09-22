@@ -19,7 +19,7 @@ namespace Aanvragen.Web.Controllers
         // GET: Person
         public async Task<ActionResult> Index()
         {
-            var people = db.People.Include(p => p.Company);
+            var people = db.People.Include(p => p.Company).Where(x => x.Active == true);
             return View(await people.ToListAsync());
         }
 
@@ -117,7 +117,7 @@ namespace Aanvragen.Web.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Person person = await db.People.FindAsync(id);
-            db.People.Remove(person);
+            person.Active = false;
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

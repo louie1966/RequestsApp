@@ -100,7 +100,7 @@ namespace Aanvragen.Web.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id) {
             Request request = await db.Requests.FindAsync(id);
-            db.Requests.Remove(request);
+            request.Active = false;
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

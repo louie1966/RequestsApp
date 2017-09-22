@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,16 +14,16 @@ namespace Aanvragen.Web.Controllers {
         private RequestDb db = new RequestDb();
 
         // GET: Attachment
-        public ActionResult Index() {
-            return View(db.Attachments.ToList());
+        public async Task<ActionResult> Index() {
+            return View(await db.Attachments.Where(x => x.Active == true).ToListAsync());
         }
 
         // GET: Attachment/Details/5
-        public ActionResult Details(int? id) {
+        public async Task<ActionResult> Details(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Attachment attachment = db.Attachments.Find(id);
+            Attachment attachment = await db.Attachments.FindAsync(id);
             if (attachment == null) {
                 return HttpNotFound();
             }
@@ -39,10 +40,10 @@ namespace Aanvragen.Web.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Description,FileName,Extention,Url,Type")] Attachment attachment) {
+        public async Task<ActionResult> Create([Bind(Include = "Name,Description,FileName,Extention,Url,Type")] Attachment attachment) {
             if (ModelState.IsValid) {
                 db.Attachments.Add(attachment);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -78,11 +79,11 @@ namespace Aanvragen.Web.Controllers {
         }
 
         // GET: Attachment/Edit/5
-        public ActionResult Edit(int? id) {
+        public async Task<ActionResult> Edit(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Attachment attachment = db.Attachments.Find(id);
+            Attachment attachment = await db.Attachments.FindAsync(id);
             if (attachment == null) {
                 return HttpNotFound();
             }
@@ -94,21 +95,21 @@ namespace Aanvragen.Web.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Description,FileName,Extention,Url,Type")] Attachment attachment) {
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,Description,FileName,Extention,Url,Type")] Attachment attachment) {
             if (ModelState.IsValid) {
                 db.Entry(attachment).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(attachment);
         }
 
         // GET: Attachment/Delete/5
-        public ActionResult Delete(int? id) {
+        public async Task<ActionResult> Delete(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Attachment attachment = db.Attachments.Find(id);
+            Attachment attachment = await db.Attachments.FindAsync(id);
             if (attachment == null) {
                 return HttpNotFound();
             }
@@ -118,10 +119,10 @@ namespace Aanvragen.Web.Controllers {
         // POST: Attachment/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id) {
+        public async Task<ActionResult> DeleteConfirmed(int id) {
             Attachment attachment = db.Attachments.Find(id);
-            db.Attachments.Remove(attachment);
-            db.SaveChanges();
+            attachment.Active = false;
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

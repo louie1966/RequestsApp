@@ -34,7 +34,7 @@
             @Html.DisplayNameFor(model => model.HireType)
         </th>
         <th>
-            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success btn-xs" })
+            @Html.ActionLink(" ", "Create", null, new { @class = "btn btn-xs btn-success glyphicon glyphicon-asterisk", @role = "button" })
         </th>
     </tr>
 
@@ -66,9 +66,9 @@
             </td>
             <td>
                 <div class="btn-group btn-group-xs">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-primary", @role = "button" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger", @role = "button" })
+                    @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "btn btn-primary glyphicon glyphicon-pencil", @role = "button" })
+                    @Html.ActionLink(" ", "Details", new { id = item.ID }, new { @class = "btn btn-primary glyphicon glyphicon-th-list", @role = "button" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.ID }, new { @class = "btn btn-danger glyphicon glyphicon-trash", @role = "button" })
                 </div>
             </td>
         </tr>
