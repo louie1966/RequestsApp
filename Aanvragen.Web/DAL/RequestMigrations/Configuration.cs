@@ -23,8 +23,8 @@ namespace Aanvragen.Web.DAL.RequestMigrations {
             context.Attachments.AddOrUpdate(
                 a => a.ID,
                 new Attachment { ID = 1, Name = "Attachment 1", Description = "Attachment 1 Mc. Donalds", FileName = "attachment1_20170830001.txt", Extention = "txt", Type = AttachmentType.Overig, Url = "http://server.nl/attachment1_20170830001.txt", Active = true },
-                new Attachment { ID = 2, Name = "Attachemet 2", Description = " Attachment 2 SIRA", FileName = "attachment2_20170830002.xls", Extention = "xls", Type = AttachmentType.CV, Active = true },
-                new Attachment { ID = 3, Name = "Attachemet 3", Description = " Attachment 3 TTS", FileName = "attachment3_20170830003.docx", Extention = "docx", Type = AttachmentType.Personal, Active = true });
+                new Attachment { ID = 2, Name = "Attachment 2", Description = " Attachment 2 SIRA", FileName = "attachment2_20170830002.xls", Extention = "xls", Type = AttachmentType.CV, Active = true },
+                new Attachment { ID = 3, Name = "Attachment 3", Description = " Attachment 3 TTS", FileName = "attachment3_20170830003.docx", Extention = "docx", Type = AttachmentType.Personal, Active = true });
 
             context.Requests.AddOrUpdate(
                 r => r.ID,

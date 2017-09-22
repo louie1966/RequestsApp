@@ -39,7 +39,7 @@ namespace Aanvragen.Web.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,FileName,Extention,Url,Type")] Attachment attachment) {
+        public ActionResult Create([Bind(Include = "Name,Description,FileName,Extention,Url,Type")] Attachment attachment) {
             if (ModelState.IsValid) {
                 db.Attachments.Add(attachment);
                 db.SaveChanges();

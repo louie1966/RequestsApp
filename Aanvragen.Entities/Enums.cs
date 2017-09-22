@@ -10,7 +10,8 @@
     public enum HireType {
         Inhuur, Verhuur, Geen, Overig
     }
-
+    // TODO: Vrij invulveld voor Roles
+    // DEBUG: dddd
     public enum Role {
         Operationmanager, Accountmanager, Directeur, Jobcoach, Overig
     }

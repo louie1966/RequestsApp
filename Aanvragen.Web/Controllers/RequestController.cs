@@ -10,37 +10,31 @@ using System.Web.Mvc;
 using Aanvragen.Entities;
 using Aanvragen.Web.DAL;
 
-namespace Aanvragen.Web.Controllers
-{
-    public class RequestController : Controller
-    {
+namespace Aanvragen.Web.Controllers {
+    public class RequestController : Controller {
         private RequestDb db = new RequestDb();
 
         // GET: Request
-        public async Task<ActionResult> Index()
-        {
-            var requests = db.Requests.Include(r => r.Company);
+        public async Task<ActionResult> Index() {
+            var requests = db.Requests.Include(r => r.Company).Where(x => x.Active == true);
+
             return View(await requests.ToListAsync());
         }
 
         // GET: Request/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Request request = await db.Requests.FindAsync(id);
-            if (request == null)
-            {
+            if (request == null) {
                 return HttpNotFound();
             }
             return View(request);
         }
 
         // GET: Request/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name");
             return View();
         }
@@ -50,10 +44,8 @@ namespace Aanvragen.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,RequestNumber,Name,Description,Type,Status,Created,Start,End,CompanyID,Active")] Request request)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Create([Bind(Include = "RequestNumber,Name,Description,Type,Status,Created,Start,End,CompanyID,Active")] Request request) {
+            if (ModelState.IsValid) {
                 db.Requests.Add(request);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -64,15 +56,12 @@ namespace Aanvragen.Web.Controllers
         }
 
         // GET: Request/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Edit(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Request request = await db.Requests.FindAsync(id);
-            if (request == null)
-            {
+            if (request == null) {
                 return HttpNotFound();
             }
             ViewBag.CompanyID = new SelectList(db.Companies, "ID", "Name", request.CompanyID);
@@ -84,10 +73,8 @@ namespace Aanvragen.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,RequestNumber,Name,Description,Type,Status,Created,Start,End,CompanyID,Active")] Request request)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Edit([Bind(Include = "ID,RequestNumber,Name,Description,Type,Status,Created,Start,End,CompanyID,Active")] Request request) {
+            if (ModelState.IsValid) {
                 db.Entry(request).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -97,15 +84,12 @@ namespace Aanvragen.Web.Controllers
         }
 
         // GET: Request/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Delete(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Request request = await db.Requests.FindAsync(id);
-            if (request == null)
-            {
+            if (request == null) {
                 return HttpNotFound();
             }
             return View(request);
@@ -114,18 +98,15 @@ namespace Aanvragen.Web.Controllers
         // POST: Request/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
+        public async Task<ActionResult> DeleteConfirmed(int id) {
             Request request = await db.Requests.FindAsync(id);
             db.Requests.Remove(request);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);

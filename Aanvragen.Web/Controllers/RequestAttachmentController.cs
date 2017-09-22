@@ -48,7 +48,7 @@ namespace Aanvragen.Web.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,RequestID,AttachmentID,Action")] RequestAttachment requestAttachment) {
+        public async Task<ActionResult> Create([Bind(Include = "RequestID,AttachmentID,Action")] RequestAttachment requestAttachment) {
             if (ModelState.IsValid) {
                 db.RequestAttachments.Add(requestAttachment);
                 await db.SaveChangesAsync();

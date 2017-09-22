@@ -117,28 +117,16 @@
             @Html.DisplayNameFor(model => model.PersonAttachments)
         </dt>
         <dd>
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Link</th>
-                </tr>
+            @Html.ActionLink(" ", "Create", "PersonAttachment", new { id = Model.ID }, new { @class = "glyphicon glyphicon-plus" })
+            <ul>
                 @if (Model.PersonAttachments != null) {
-                    foreach (var item in Model.PersonAttachments) {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelITem => item.Attachment.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Attachment.Type)
-                            </td>
-                            <td>
-                                <a href=" @Html.DisplayFor(modelItem => item.Attachment.Url) " class="btn-link">Open </a>
-                            </td>
-                        </tr>
+                foreach (var item in Model.PersonAttachments) {
+                        <li>
+                            @Html.ActionLink(" ", "Delete", "PersonAttachment", new { id = item.ID }, new { @class = "glyphicon glyphicon-minus" }) | <a target="_blank" href="@Html.DisplayFor(modelItem => item.Attachment.Url)">@Html.DisplayFor(modelItem => item.Attachment.Name) - @Html.DisplayFor(modelItem=>item.Attachment.Type) - @Html.DisplayFor(modelItem=>item.Action)</a>
+                        </li>
                     }
                 }
-            </table>
+            </ul>
         </dd>
     </dl>
 </div>
